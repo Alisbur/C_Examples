@@ -18,3 +18,5 @@ Console.Clear();
 Console.WriteLine("Введите длину массива ");
 int num = int.Parse(Console.ReadLine());
 PrintMas(FillMas(num));
+
+double max = null;
