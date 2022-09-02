@@ -45,19 +45,18 @@ void PrintArr(int[,] arr){
     }
 }
 
-int[] 2DTo1D(int[,] mas){
+int[] ConvertArray2Dto1D(int[,] arr){
+    int rows = arr.GetLength(0);
+    int cols = arr.GetLength(1);
     int count=0;
-    while(!issorted){
-        issorted=true;
-        for(int i=0;i<mas.Length-1;i++)
-            if(res[i]<res[i+1]){
-                issorted=false;
-                temp=res[i];
-                res[i]=res[i+1];
-                res[i+1]=temp;
+    int[] result = new int[rows*cols];
+
+    for(int i=0;i<rows;i++)
+        for(int j=0;j<cols;j++){
+            result[count]=arr[i,j];
+            count++;
             }
-    }
-    return res;
+    return result;
 }
 
 int[] Sort(int[] mas){
@@ -77,65 +76,32 @@ int[] Sort(int[] mas){
     return res;
 }
 
-// int[,] Stats(int[] mas){
-//     int val;
-//     int count;
-//     int i=0;
-//     int[,] res=new int[mas.Length,2]
-    
-//     for(i=0;i<mas.Length;i++)
-//         if[mas[i]=mas[i+1]
-            
-
-//     while(mas[i]==mas[i+1]){
-//         i++;
-//         count++;
-//     }
-    
-//     for(int i=0;i<mas.Length;i++){
-//         val!=mas[i];
-//         count=0;
-//         for(int j=0;j<mas.Length;j++){
-//             if(mas[j]==val)count++
-//         result
-
-//         if()
-
-//     }
-
-
-// int[] Sort(int[] mas){
-//     int[] res = mas;
-//     int temp;
-//     bool issorted=false;
-//     while(!issorted){
-//         issorted=true;
-//         for(int i=0;i<mas.Length-1;i++)
-//             if(res[i]<res[i+1]){
-//                 issorted=false;
-//                 temp=res[i];
-//                 res[i]=res[i+1];
-//                 res[i+1]=temp;
-//             }
-//     }
-//     return res;
-// }
+int GetStat(int[] arr, int x ){
+    int count=0;
+    for(int i=0;i<arr.Length;i++)
+        if(arr[i]==x) count++;
+    return count;
+}
 
 Console.Clear();
-int[] mas1 = {1,9,9,0,2,8,0,9};
-int[,] mas2 = {{1,2,3},{4,6,1},{2,1,6}};
 
+// int[] mas2 = {1,9,9,0,2,8,0,9};
+// int[,] mas2 = {{1,2,3},{4,6,1},{2,1,6}};
 
-// Console.Write("Введите количество строк массива: ");
-// int rows = int.Parse(Console.ReadLine());
-// Console.Write("Введите количество столбцов массива: ");
-// int cols = int.Parse(Console.ReadLine());
+Console.Write("Введите количество строк массива: ");
+int rows = int.Parse(Console.ReadLine());
+Console.Write("Введите количество столбцов массива: ");
+int cols = int.Parse(Console.ReadLine());
 
-// Console.WriteLine("Исходный массив:");
-// int[,] arr = GetArr(rows,cols,0,10);
-// PrintArr(arr);
+Console.WriteLine("Исходный массив:");
+int[,] mas2 = GetArr(rows,cols,0,10);
+PrintArr(mas2);
 
-// Console.WriteLine("Результат:");
-// PrintArr(SwapFirstLastRows(arr));
+int[] temp = Sort(ConvertArray2Dto1D(mas2));
 
-Console.WriteLine(string.Join(", ", Sort(mas1)));
+Console.WriteLine(string.Join(", ", ConvertArray2Dto1D(mas2)));
+Console.WriteLine(string.Join(", ", temp));
+
+for(int i=0;i<temp.Length;i++)
+    if((i==0)||((i>0)&&(temp[i]!=temp[i-1])))
+        Console.WriteLine($"Элемент {temp[i]} встречается {GetStat(temp,temp[i])} раз;");
